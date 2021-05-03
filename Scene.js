@@ -1,4 +1,5 @@
 import Car from "./car.js"
+
 export default class MainScene extends Phaser.Scene {
     
     constructor() {
@@ -22,23 +23,21 @@ export default class MainScene extends Phaser.Scene {
     movePlayer(event){
         
         this.playerIsMoving = true;
-        
-        
+                
     }
     
     stopPlayer(event){
         
         this.playerIsMoving = false;
-        
-        
+         
     }
     
     preload() {
     
-    this.load.image('background', './IMGS/map.png');
-    this.load.image('player', './IMGS/character_blonde_green.png');
-    this.load.image('yellow.car', './IMGS/car_yellow_1.png');
-    this.load.image('motorcycle', './IMGS/motorcycle_green.png');
+        this.load.image('background', './IMGS/map.png');
+        this.load.image('player', './IMGS/character_blonde_green.png');
+        this.load.image('yellow.car', './IMGS/car_yellow_1.png');
+        this.load.image('motorcycle', './IMGS/motorcycle_green.png');
     
     }
     
@@ -90,14 +89,25 @@ export default class MainScene extends Phaser.Scene {
         
         
         this.motorcycle = this.add.sprite(        
-        this.game.config.width / 2,
+            this.game.config.width / 2,
             70,
-            'motorcycle'
-        
+            'motorcycle'        
         );
         
         this.player = this.add.sprite(640, 1225, 'player');
         this.cars = [];
+        this.cars.push(
+            this.car001 = this.add.existing (
+
+                new Car(this,
+                        10 * 128 - 64,
+                        1 * 128 + 64,
+                        'yellow.car',
+                        true
+                       )
+            )
+            
+        );
         this.cars.push(
             this.car001 = this.add.existing (
 
@@ -114,8 +124,32 @@ export default class MainScene extends Phaser.Scene {
             this.car001 = this.add.existing (
 
                 new Car(this,
+                        10 * 128 - 64,
+                        4 * 128 + 64,
+                        'yellow.car',
+                        true
+                       )
+            )
+            
+        );
+        this.cars.push(
+            this.car001 = this.add.existing (
+
+                new Car(this,
                         1 * 128 - 64,
                         6 * 128 + 64,
+                        'yellow.car',
+                        true
+                       )
+            )
+            
+        );
+        this.cars.push(
+            this.car001 = this.add.existing (
+
+                new Car(this,
+                        1 * 128 - 64,
+                        7 * 128 + 64,
                         'yellow.car',
                         true
                        )
@@ -146,12 +180,8 @@ export default class MainScene extends Phaser.Scene {
         //Car Position Updates
         for(let i = 0; i < this.cars.length; i++){
             this.cars[i].update(time);
-            
-            
-            
+
             /*if(this.cars[init].overlaps(this.player)) {
-                
-                
                 
             }*/
             
@@ -167,7 +197,7 @@ export default class MainScene extends Phaser.Scene {
         playerRect, motorcycleRect
         )){
             
-            console.log("Nyoooom");
+            console.log("Nyoooom - YOU WIN");
             this.scene.restart();
         }
                
@@ -177,8 +207,7 @@ export default class MainScene extends Phaser.Scene {
                 
             console.log("DED");
             this.scene.restart();
-                
-                
+                               
             }
             
         }
